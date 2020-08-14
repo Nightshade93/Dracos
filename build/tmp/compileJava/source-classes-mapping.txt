@@ -1,0 +1,22 @@
+com/github/dracos/gui/CharSheet1.java
+ com.github.dracos.gui.CharSheet1
+com/github/dracos/mixin/KillMixin.java
+ com.github.dracos.mixin.KillMixin
+com/github/dracos/Dracos.java
+ com.github.dracos.Dracos
+com/github/dracos/playerComponent/StatsCommand.java
+ com.github.dracos.playerComponent.StatsCommand
+com/github/dracos/gui/ExampleScreen.java
+ com.github.dracos.gui.ExampleScreen
+com/github/dracos/playerComponent/BaseStat.java
+ com.github.dracos.playerComponent.BaseStat
+com/github/dracos/playerComponent/playerComponent.java
+ com.github.dracos.playerComponent.playerComponent
+com/github/dracos/gui/CharSheet2.java
+ com.github.dracos.gui.CharSheet2
+com/github/dracos/client/DracosClient.java
+ com.github.dracos.client.DracosClient
+com/github/dracos/playerComponent/playerLevel.java
+ com.github.dracos.playerComponent.playerLevel
+com/github/dracos/items/CharSheetItem.java
+ com.github.dracos.items.CharSheetItem
