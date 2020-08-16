@@ -11,6 +11,8 @@ public class playerLevel implements playerComponent {
     private final PlayerEntity player;
     private int xp = 0;
     private int level = 1;
+    private int pntsToSpend = 0;
+    private boolean hasSANumLeft = true;
 
     public playerLevel(PlayerEntity player) {
         this.player = player;
@@ -57,6 +59,27 @@ public class playerLevel implements playerComponent {
     @Override
     public void setLevel(int newLevel) {
         this.level = newLevel;
+    }
+
+    public int getPntsToSpend() { return this.pntsToSpend; }
+
+    public void setPntsToSpend(int newPoint) { this.pntsToSpend = newPoint; }
+
+    @Override
+    public boolean getHasSANumsRemaining() {
+
+        if (eight.isUsed() && ten.isUsed() && twelve.isUsed() && thirteen.isUsed() && fourteen.isUsed() && fifteen.isUsed()) {
+            hasSANumLeft = false;
+            return false;
+        }
+
+        hasSANumLeft = true;
+        return true;
+    }
+
+    @Override
+    public void setHasSANumsRemaining(boolean hasSANumsRemaining) {
+        this.hasSANumLeft = hasSANumsRemaining;
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.github.dracos;
 
-//import com.github.dracos.command.player.LevelCommand;
-//import com.github.dracos.command.player.XpCommand;
+import com.github.dracos.command.LevelCommand;
+import com.github.dracos.command.XpCommand;
 import com.github.dracos.items.CharSheetItem;
-import com.github.dracos.playerComponent.StatsCommand;
+import com.github.dracos.command.StatsCommand;
 import com.github.dracos.playerComponent.playerComponent;
 import com.github.dracos.playerComponent.playerLevel;
 import nerdhub.cardinal.components.api.ComponentRegistry;
@@ -36,8 +36,8 @@ public class Dracos implements ModInitializer {
         EntityComponentCallback.event(PlayerEntity.class).register(((myPlayer, component) -> component.put(PLAYER_LEVEL, new playerLevel(myPlayer))));
         EntityComponents.setRespawnCopyStrategy(PLAYER_LEVEL, RespawnCopyStrategy.ALWAYS_COPY);
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> StatsCommand.register(dispatcher));
-//        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> XpCommand.register(dispatcher));
-//        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> LevelCommand.register(dispatcher));
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> XpCommand.register(dispatcher));
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> LevelCommand.register(dispatcher));
 
         Registry.register(Registry.ITEM, new Identifier("tutorial", "gui_item"), GUI_ITEM);
 
@@ -58,6 +58,22 @@ public class Dracos implements ModInitializer {
 
     public static int getComponentLevel(ComponentType<? extends playerComponent> type, ComponentProvider provider) {
         return type.get(provider).getLevel();
+    }
+
+    public static int getComponentPntsToSpend(ComponentType<? extends playerComponent> type, ComponentProvider provider) {
+        return type.get(provider).getPntsToSpend();
+    }
+
+    public static void setComponentPntsToSpend(ComponentType<? extends playerComponent> type, ComponentProvider provider, int newPoint) {
+        type.get(provider).setPntsToSpend(newPoint);
+    }
+
+    public static boolean getComponentHasSANumRemaining (ComponentType<? extends playerComponent> type, ComponentProvider provider) {
+        return type.get(provider).getHasSANumsRemaining();
+    }
+
+    public static void setComponentHasSANumRemaining(ComponentType<? extends playerComponent> type, ComponentProvider provider, boolean hasSANumRem) {
+        type.get(provider).setHasSANumsRemaining(hasSANumRem);
     }
 
     public static int checkPlayerLevel (ComponentType<? extends playerComponent> type, ServerPlayerEntity entity) {
@@ -86,42 +102,43 @@ public class Dracos implements ModInitializer {
                     type.get(provider).onLevelUp(false);
                 }
 
+                //Adds 2 Points to a rand stat at every 4th Level
                 if (type.get(provider).getLevel() == 4 || type.get(provider).getLevel() == 8 || type.get(provider).getLevel() == 12 || type.get(provider).getLevel() == 16 || type.get(provider).getLevel() == 19) {
 
-                    int rand = (int) (Math.random() * 6 + 1);
-                    switch (rand) {
+                    setComponentPntsToSpend(type, provider, 2);
 
-                        case 1:
-                            playerLevel.strength.addToStat(2);
-                            System.out.println("Added 2 to Str!");
-                            break;
-                        case 2:
-                            playerLevel.dexterity.addToStat(2);
-                            System.out.println("Added 2 to Dex!");
-                            break;
-                        case 3:
-                            playerLevel.constitution.addToStat(2);
-                            System.out.println("Added 2 to Con!");
-                            break;
-                        case 4:
-                            playerLevel.intelligence.addToStat(2);
-                            System.out.println("Added 2 to Int!");
-                            break;
-                        case 5:
-                            playerLevel.wisdom.addToStat(2);
-                            System.out.println("Added 2 to Wis!");
-                            break;
-                        case 6:
-                            playerLevel.charisma.addToStat(2);
-                            System.out.println("Added 2 to Cha!");
-                            break;
-                        default:
-                            System.out.println("Not a valid rand!");
-                            break;
-
-                    }
-
-                    return;
+//                    int rand = (int) (Math.random() * 6 + 1);
+//                    switch (rand) {
+//
+//                        case 1:
+//                            playerLevel.strength.addToStat(2);
+//                            System.out.println("Added 2 to Str!");
+//                            break;
+//                        case 2:
+//                            playerLevel.dexterity.addToStat(2);
+//                            System.out.println("Added 2 to Dex!");
+//                            break;
+//                        case 3:
+//                            playerLevel.constitution.addToStat(2);
+//                            System.out.println("Added 2 to Con!");
+//                            break;
+//                        case 4:
+//                            playerLevel.intelligence.addToStat(2);
+//                            System.out.println("Added 2 to Int!");
+//                            break;
+//                        case 5:
+//                            playerLevel.wisdom.addToStat(2);
+//                            System.out.println("Added 2 to Wis!");
+//                            break;
+//                        case 6:
+//                            playerLevel.charisma.addToStat(2);
+//                            System.out.println("Added 2 to Cha!");
+//                            break;
+//                        default:
+//                            System.out.println("Not a valid rand!");
+//                            break;
+//
+//                    }
 
                 }
 

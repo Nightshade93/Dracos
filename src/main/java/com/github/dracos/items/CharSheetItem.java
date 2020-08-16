@@ -19,7 +19,7 @@ public class CharSheetItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        MinecraftClient.getInstance().openScreen(new ExampleScreen(new CharSheet1()));
+        MinecraftClient.getInstance().openScreen(new ExampleScreen(new CharSheet1(user)));
         return super.use(world, user, hand);
 
     }

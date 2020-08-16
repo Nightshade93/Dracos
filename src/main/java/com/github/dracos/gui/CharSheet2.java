@@ -6,11 +6,12 @@ import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WLabel;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.player.PlayerEntity;
 
 
 public class CharSheet2 extends LightweightGuiDescription {
 
-    public CharSheet2() {
+    public CharSheet2(PlayerEntity user) {
 
         WGridPanel root = new WGridPanel();
         setRootPanel(root);
@@ -20,7 +21,7 @@ public class CharSheet2 extends LightweightGuiDescription {
         root.add(lastPage, 0, 5);
         lastPage.setOnClick(() -> {
             MinecraftClient.getInstance().openScreen(null);
-            MinecraftClient.getInstance().openScreen(new ExampleScreen(new CharSheet1()));
+            MinecraftClient.getInstance().openScreen(new ExampleScreen(new CharSheet1(user)));
         });
 
         WLabel title = new WLabel("Character Sheet");
